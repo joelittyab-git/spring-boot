@@ -50,4 +50,26 @@ public class MutableHttpServletRequest extends HttpServletRequestWrapper {
 
         return Collections.enumeration(list);
     }
+
+    @Override
+    public int getIntHeader(String name) {
+        String header = this.customHeaders.get(name);
+
+        if(header!=null){
+            try{
+                return Integer.parseInt(header);
+            }catch (Exception ignore){
+                System.out.println("Cannot parse string to integer MutableHttpServletRequest.java:62");
+            }
+        }
+
+        return super.getIntHeader(name);
+    }
+
+    @Override
+    public String getAuthType() {
+        return "TokenAuthentication";
+    }
+
+
 }
